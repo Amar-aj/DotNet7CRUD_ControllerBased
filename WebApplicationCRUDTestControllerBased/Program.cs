@@ -1,4 +1,8 @@
 
+using Microsoft.EntityFrameworkCore;
+using WebApplicationCRUDTestControllerBased.AppData;
+using WebApplicationCRUDTestControllerBased.Services;
+
 namespace WebApplicationCRUDTestControllerBased
 {
     public class Program
@@ -8,8 +12,11 @@ namespace WebApplicationCRUDTestControllerBased
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IStudent, StudentService>();
 
             builder.Services.AddControllers();
+
+            builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DbCon")));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
