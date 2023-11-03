@@ -26,7 +26,7 @@ public class StudentService : IStudent
     {
         try
         {
-            var studentEntity = await _context.Students.AddAsync(student, CancellationToken.None);
+            var studentEntity = await _context.Students.AddAsync(student);
             await _context.SaveChangesAsync();
             if (studentEntity.State == EntityState.Added || studentEntity.State==EntityState.Unchanged)
             {
